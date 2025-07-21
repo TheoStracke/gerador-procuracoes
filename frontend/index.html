@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Procurações</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-btn" aria-label="Alternar tema">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
+    </div>
+
+    <main class="main-container">
+        <header class="header">
+            <div class="logo-container">
+                <img src="imagem.ico" alt="Logo Rede Vellum" class="logo">
+                <div class="logo-glow"></div>
+            </div>
+            <h1 class="main-title">
+                <span class="title-word">Gerador</span>
+                <span class="title-word">de</span>
+                <span class="title-word">Procurações</span>
+            </h1>
+            <p class="subtitle">Sistema inteligente para criação de procurações</p>
+        </header>
+        
+        <form id="form-dados" class="main-form">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <section class="form-section personal-data">
+                <h2 class="section-title"><span class="section-icon">👤</span> Dados Pessoais</h2>
+                
+                <div class="form-group floating-label">
+                    <input type="text" name="nome" id="nome" class="form-input" required placeholder=" ">
+                    <label for="nome" class="form-label">Nome Completo do Outorgante</label>
+                    <div class="input-highlight"></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group floating-label">
+                        <input type="text" id="cpf" class="form-input" required maxlength="14" placeholder=" ">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <div class="input-highlight"></div>
+                        <div class="validation-icon"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group rg-group">
+                    <h3 class="group-title">Documento de Identidade</h3>
+                    <div class="rg-inputs">
+                        <div class="floating-label">
+                            <input type="text" id="rg" class="form-input" required maxlength="15" placeholder=" ">
+                            <label for="rg" class="form-label">Número do RG</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="floating-label">
+                            <input type="text" name="orgemissor" id="orgemissor" class="form-input" placeholder="Ex: SSP" maxlength="6">
+                            <label for="orgemissor" class="form-label">Órgão Emissor</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="floating-label">
+                            <select id="uf" name="uf" class="form-select" required>
+                                <option value="">UF</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="RJ">RJ</option>
+                            </select>
+                            <label for="uf" class="form-label">Estado</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section address-data">
+                <h2 class="section-title"><span class="section-icon">📍</span> Localização</h2>
+
+                <div class="form-group floating-label">
+                    <input type="text" name="local" id="local" class="form-input" required placeholder=" ">
+                    <label for="local" class="form-label">Local da Assinatura (Cidade)</label>
+                    <div class="input-highlight"></div>
+                </div>
+                
+                <div class="cep-group">
+                    <div class="floating-label">
+                        <input type="text" id="cep" class="form-input" maxlength="10" required placeholder=" ">
+                        <label for="cep" class="form-label">CEP</label>
+                        <div class="input-highlight"></div>
+                    </div>
+                    <button type="button" class="btn-search" id="buscar-cep-btn">
+                        <span class="btn-text">Buscar</span>
+                        <span class="btn-icon">🔍</span>
+                    </button>
+                </div>
+                
+                <div id="resultado" class="cep-result">
+                    <div class="form-row">
+                        <div class="form-group floating-label">
+                            <input type="text" id="streetInput" class="form-input" required placeholder=" ">
+                            <label for="streetInput">Rua</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group floating-label">
+                            <input type="text" id="numberInput" class="form-input" required placeholder=" ">
+                            <label for="numberInput">Número</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group floating-label">
+                            <input type="text" id="neighborhoodInput" class="form-input" required placeholder=" ">
+                            <label for="neighborhoodInput">Bairro</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group floating-label">
+                            <input type="text" id="cityInput" class="form-input" required placeholder=" ">
+                            <label for="cityInput">Cidade</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group floating-label">
+                            <input type="text" id="stateInput" class="form-input" required placeholder=" ">
+                            <label for="stateInput">Estado</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="form-section vehicle-data">
+                <h2 class="section-title"><span class="section-icon">🚗</span> Dados do Veículo</h2>
+                
+                <div class="form-row">
+                    <div class="form-group floating-label">
+                        <select id="brand" class="form-select" required>
+                            <option value="">Carregando...</option>
+                        </select>
+                        <label for="brand" class="form-label">Marca</label>
+                    </div>
+                    
+                    <div class="form-group floating-label">
+                         <select id="model" class="form-select" disabled required>
+                            <option value=""></option>
+                        </select>
+                        <label for="model" class="form-label">Modelo</label>
+                    </div>
+                    
+                    <div class="form-group floating-label">
+                         <select id="year" class="form-select" disabled required>
+                            <option value=""></option>
+                        </select>
+                        <label for="year" class="form-label">Ano</label>
+                    </div>
+                </div>
+                
+                <div id="vehicle-details" class="vehicle-details"></div>
+            </section>
+
+            <div class="form-actions">
+    <button type="button" id="gerar-pdf-compra-btn" class="btn-primary">
+        <span class="btn-text">📄 Gerar PDF de COMPRA</span>
+    </button>
+    <button type="button" id="gerar-pdf-venda-btn" class="btn-primary">
+        <span class="btn-text">📄 Gerar PDF de VENDA</span>
+    </button>
+</div>
+        </form>
+    </main>
+
+    <div id="loading-overlay" class="loading-overlay">
+        </div>
+
+    <script src="../scripts/main.js" defer></script>
+</body>
+</html>
