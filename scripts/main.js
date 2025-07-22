@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function drawJustifiedText({ page, text, font, size, lineHeight, x, y, maxWidth, color }) {
     let currentY = y;
-    const words = text.split(' ');
+    const words = text.split(' ').map(word => word.trim()).filter(word => word.length > 0); // Remove espaços em branco
     let line = '';
 
     for (let i = 0; i < words.length; i++) {
@@ -16,7 +16,7 @@ function drawJustifiedText({ page, text, font, size, lineHeight, x, y, maxWidth,
         const testWidth = font.widthOfTextAtSize(testLine, size);
 
         if (testWidth > maxWidth && i > 0) {
-            const wordsInLine = line.trim().split(' ');
+            const wordsInLine = line.trim().split(' ').filter(word => word.length > 0); // Remove espaços em branco
             if (wordsInLine.length > 1) {
                 const lineWithoutSpaces = wordsInLine.join('');
                 const widthWithoutSpaces = font.widthOfTextAtSize(lineWithoutSpaces, size);
@@ -42,6 +42,7 @@ function drawJustifiedText({ page, text, font, size, lineHeight, x, y, maxWidth,
     page.drawText(line.trim(), { x, y: currentY, font, size, color });
     return currentY - lineHeight * 2; // Retorna a posição Y para o próximo elemento
 }
+
 
     function setupTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -243,18 +244,18 @@ function drawJustifiedText({ page, text, font, size, lineHeight, x, y, maxWidth,
         page.drawText(titulo, { x: (width - titleWidth) / 2, y: currentY, font: boldFont, size: titleSize });
         currentY -= 40;
 
-        // *** AQUI USAMOS A NOVA FUNÇÃO PARA JUSTIFICAR O TEXTO ***
         currentY = drawJustifiedText({
-            page,
-            text: corpoTexto,
-            font,
-            size: 12,
-            lineHeight: 15,
-            x: margin,
-            y: currentY,
-            maxWidth: width - (2 * margin),
-            color: rgb(0, 0, 0)
-        });
+    page,
+    text: corpoTexto,
+    font,
+    size: 12,
+    lineHeight: 15,
+    x: margin,
+    y: currentY,
+    maxWidth: width - (2 * margin),
+    color: rgb(0, 0, 0)
+});
+
         
         // O restante do posicionamento permanece igual
         const localDataWidth = font.widthOfTextAtSize(localData, 12);
