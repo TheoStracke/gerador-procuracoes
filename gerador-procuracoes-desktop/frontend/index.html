@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
+    <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.setAttribute('data-theme', 'light'); // ou dark, se preferir
+  });
+</script>
 </head>
 <body>
     <div class="theme-toggle">
@@ -21,7 +26,7 @@
     <main class="main-container">
         <header class="header">
             <div class="logo-container">
-                <img src="imagem.ico" alt="Logo Rede Vellum" class="logo">
+                <img src="../assets/imagem.png" alt="Logo Rede Vellum" class="logo">
                 <div class="logo-glow"></div>
             </div>
             <h1 class="main-title">
@@ -70,10 +75,34 @@
                         </div>
                         <div class="floating-label">
                             <select id="uf" name="uf" class="form-select" required>
-                                <option value="">UF</option>
-                                <option value="SC">SC</option>
-                                <option value="SP">SP</option>
-                                <option value="RJ">RJ</option>
+                                <option disabled selected>UF</option>
+	<option value="AC">AC</option>
+	<option value="AL">AL</option>
+	<option value="AP">AP</option>
+	<option value="AM">AM</option>
+	<option value="BA">BA</option>
+	<option value="CE">CE</option>
+	<option value="DF">DF</option>
+	<option value="ES">ES</option>
+	<option value="GO">GO</option>
+	<option value="MA">MA</option>
+	<option value="MS">MS</option>
+	<option value="MT">MT</option>
+	<option value="MG">MG</option>
+	<option value="PA">PA</option>
+	<option value="PB">PB</option>
+	<option value="PR">PR</option>
+	<option value="PE">PE</option>
+	<option value="PI">PI</option>
+	<option value="RJ">RJ</option>
+	<option value="RN">RN</option>
+	<option value="RS">RS</option>
+	<option value="RO">RO</option>
+	<option value="RR">RR</option>
+	<option value="SC">SC</option>
+	<option value="SP">SP</option>
+	<option value="SE">SE</option>
+	<option value="TO">TO</option>
                             </select>
                             <label for="uf" class="form-label">Estado</label>
                         </div>
@@ -163,7 +192,6 @@
                 
                 <div id="vehicle-details" class="vehicle-details"></div>
             </section>
-
             <div class="form-actions">
     <button type="button" id="gerar-pdf-compra-btn" class="btn-primary">
         <span class="btn-text">📄 Gerar PDF de COMPRA</span>
@@ -171,13 +199,23 @@
     <button type="button" id="gerar-pdf-venda-btn" class="btn-primary">
         <span class="btn-text">📄 Gerar PDF de VENDA</span>
     </button>
+    <button type="button" id="limpar-formulario-btn" class="btn-secondary">
+        <span class="btn-text">🧹 Limpar Tudo</span>
+    </button>
 </div>
+
+
+            
         </form>
     </main>
 
     <div id="loading-overlay" class="loading-overlay">
         </div>
 
-    <script src="../scripts/main.js" defer></script>
+       <footer>
+            <p>Desenvolvido por Theo Cardoso Stracke - 2025 - ©</p>
+        </footer>
+
+    <script src="../scripts/frontend.js" defer></script>
 </body>
 </html>
